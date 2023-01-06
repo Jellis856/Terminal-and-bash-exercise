@@ -115,14 +115,14 @@ Complete the player analysis.
                 
          cat 0310_win_loss_player_data.txt 0312_win_loss_player_data.txt 0315_win_loss_player_data.txt | grep -
          
-![image13](https://user-images.githubusercontent.com/115432675/211083562-d0dfbeff-1865-4163-900c-c8f7d9b2d29f.png)
+   ![image13](https://user-images.githubusercontent.com/115432675/211083562-d0dfbeff-1865-4163-900c-c8f7d9b2d29f.png)
 
   3. Place those results in a file called `Roulette_Losses`.
 
          cat 0310_win_loss_player_data.txt 0312_win_loss_player_data.txt 0315_win_loss_player_data.txt | grep - > Roulette_Losses.txt
         - `cat Roulette_Losses.txt` to check the file that you've just created
 
-![image8](https://user-images.githubusercontent.com/115432675/211084113-b6562271-ed49-4ed0-ab48-490ff99ccc9f.png)
+   ![image8](https://user-images.githubusercontent.com/115432675/211084113-b6562271-ed49-4ed0-ab48-490ff99ccc9f.png)
 
   4. Preview the file `Roulette_Losses` and analyze the data.
 
@@ -136,7 +136,7 @@ Complete the player analysis.
               
                 grep “-” Roulette_Losses.txt | awk -F" " '{print $1" "$2}' >> Notes_Player_Analysis.txt
                 
-          ![image10](https://user-images.githubusercontent.com/115432675/211085072-b6769261-dbd7-4288-be6e-e13cb900ebce.png) 
+               ![image10](https://user-images.githubusercontent.com/115432675/211085072-b6769261-dbd7-4288-be6e-e13cb900ebce.png) 
       
      - To find the common player let's use `grep` to isolate players and find who appears the most:
  
@@ -213,7 +213,7 @@ Complete the dealer analysis.
                
                cat Dealers_working_during_losses.txt
                
-     ![image22](https://user-images.githubusercontent.com/115432675/211093544-06ec5ce8-d6b1-44a7-91bb-67071231c196.png)
+             ![image22](https://user-images.githubusercontent.com/115432675/211093544-06ec5ce8-d6b1-44a7-91bb-67071231c196.png)
 
 3. Complete the player/employee correlation. 
 
@@ -252,13 +252,13 @@ Complete the following tasks:
       
         cat $1_Dealer_schedule.txt | awk -F" " '{print $1, $2, $5, $6}' | grep "$2"
 
-![image2](https://user-images.githubusercontent.com/115432675/211095963-355865f4-68c1-4f2f-b71d-c08b331c2dfe.png)
+      ![image2](https://user-images.githubusercontent.com/115432675/211095963-355865f4-68c1-4f2f-b71d-c08b331c2dfe.png)
 
 3. Test your script on the schedules to confirm it outputs the correct dealer at the time specified.
  
        sh roulette_dealer_finder_by_time.sh 0310 '02:00:00 PM'
 
-![image20](https://user-images.githubusercontent.com/115432675/211096670-94a9cba4-fecd-48a7-ace2-816fa01ef328.png)
+      ![image20](https://user-images.githubusercontent.com/115432675/211096670-94a9cba4-fecd-48a7-ace2-816fa01ef328.png)
 
 
 #### Bonus
