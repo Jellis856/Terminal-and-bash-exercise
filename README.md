@@ -207,13 +207,13 @@ Complete the dealer analysis.
 
         - How many times the dealer worked when major losses occurred.
 
-               echo "Total number of times this dealer was at the table during a loss:" >> Dealers_working_during_losses.txt
+       - `echo "Total number of times this dealer was at the table during a loss:" >> Dealers_working_during_losses.txt`
                
-               grep -i "billy jones" Dealers_working_during_losses.txt | wc -l >> Dealers_working_during_losse
+       - `grep -i "billy jones" Dealers_working_during_losses.txt | wc -l >> Dealers_working_during_losses`
                
-               cat Dealers_working_during_losses.txt
+       - `cat Dealers_working_during_losses.txt`
                
-             ![image22](https://user-images.githubusercontent.com/115432675/211093544-06ec5ce8-d6b1-44a7-91bb-67071231c196.png)
+            ![image22](https://user-images.githubusercontent.com/115432675/211093544-06ec5ce8-d6b1-44a7-91bb-67071231c196.png)
 
 3. Complete the player/employee correlation. 
 
