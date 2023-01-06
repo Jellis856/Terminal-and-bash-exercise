@@ -1,0 +1,84 @@
+#Create a couple of directories to sort through the data that we have been provided from out employer (Lucky Duck Casino)
+Mkdir Roulette_loss_Investigation
+
+
+#Inside this folder we will need to make some more directories to further divide the findings by casino player, dealer, and a summary of the findings
+mkdir Player_Analysis Dealer_Analysis Player_Dealer_Correlation
+
+
+#Inside each of the three files create a Notes_<Directory Name> for the notes we will store on our findings:
+cd Dealer_Analysis/                      
+touch Notes_Dealer_Analysis.txt
+
+
+#Repeat this for each directory
+#Gathering evidence: Setting up evidence files in the main directory (where the Roulette_loss_Investigation directory is located)
+wget "https://drive.google.com/uc?id=1ZLY_fuFu3wz7tOlxf-GUrnvp3htuGKSa" -O 3-HW-setup-evidence && chmod +x ./3-HW-setup-evidence && ./3-HW-setup-evidence
+
+
+#Move the March 10th, 12th, 15th files for both dealers and players as we are told this is when the losses took place:
+mv 0310_Dealer_schedule.txt 0312_Dealer_schedule.txt 0315_Dealer_schedule.txt ../Roulette_loss_Investigation/Dealer_Analysis
+
+#Player data
+mv 0310_win_loss_player_data.txt 0312_win_loss_player_data.txt 0315_win_loss_player_data.txt ../Roulette_loss_Investigation/Player_Analysis/
+
+#Find the losses of each player (losses will have a "-" to signify that the casino lost money in the text file)
+cat 0310_win_loss_player_data.txt 0312_win_loss_player_data.txt 0315_win_loss_player_data.txt | grep -
+
+
+#Lets add this finding to a seperate file called Roulette_Losses.txt
+cat 0310_win_loss_player_data.txt 0312_win_loss_player_data.txt 0315_win_loss_player_data.txt | grep - > Roulette_Losses.txt
+
+
+#We'll take some notes to find a common time/date,player, amount of time the player appeared in losses
+grep “-” Roulette_Losses.txt | awk -F" " '{print $1" "$2}' >> Notes_Player_Analysis.txt
+cat Roulette_Losses.txt | grep "Mylie Schmidt" Roulette_Losses.txt
+cat Roulette_Losses.txt | grep "Mylie Schmidt" Roulette_Losses.txt | wc -l
+
+
+#I preffered to open another window and use nano text editor and summarize the findings:
+nano Roulette_Losses.txt
+
+
+#Move to the Dealer_Analysis directory where we will begin the analysis for the dealer side
+#Preview the Dealer Schedule text to get an understanding of the format
+head -n 10 0310_Dealer_schedule.txt  0315_Dealer_schedule.txt 0312_Dealer_schedule.txt
+
+#Schedules are broken down by hour,game type, first and last name.
+#We can run a script that will take advantage of that and record the common dealer in each loss as we specify the time.
+#We'll put the findings in a file called Dealers_working_during_losses.txt (modify the command for each time there was a recorded loss or 13 times)
+cat 0310_Dealer_schedule.txt | awk -F" " '{print $1, $2, $5,$6}'| grep '05:00:00 AM' >> Dealers_working_during_losses.txt
+
+
+#Let's add to our Dealers_working_during_losses.txt file the common dealer and the amount of time they have appeared in game losses
+echo "Total number of times this dealer was at the table during a loss:" >> Dealers_working_during_losses.txt 
+grep -i "billy jones" Dealers_working_during_losses.txt | wc -l >> Dealers_working_during_losses.txt 
+
+#Let's make a quick note in Notes_Dealer_Schedule.txt to document what we now have either by the text editor nano or echo in to the file
+
+
+#Move to the Player_Dealer_Correlation directory and give a summary on the relationship between the player and dealer we have found in each of the losses
+
+
+#We will now creat a shell script that can analyze future employees, we'll call it roulette_dealer_finder_by_time.sh
+nano roulette_dealer_finder_by_time.sh
+#in the nano editor use #!/bin/bash as the header before puting the following script
+cat $1_Dealer_schedule.txt | awk -F" " '{print $1, $2, $5, $6}' | grep "$2"
+#When running the script we'll need to fill two arguments; the date and time
+sh roulette_dealer_finder_by_time.sh 0310 '02:00:00 PM'
+
+#Our next script will allow us to search for the dealer of a specific game as well. 
+nano roulette_dealer_finder_by_time_and_game.sh
+#use #!/bin/bash 
+cat $1_Dealer_schedule.txt | awk -F" " '{print $1, $2, '$3','$4' }'| grep "$2"
+#We will have the same two arguments to add as well as specify from which game column we want the dealer to printed
+sh roulette_dealer_finder_by_time_and_game.sh 0310 '02:00:00 PM' '$3' '$4'
+#Cheyna Mercado
+
+sh roulette_dealer_finder_by_time_and_game.sh 0310 '02:00:00 PM' '$5' '$6'
+#Billy Jones
+
+sh roulette_dealer_finder_by_time_and_game.sh 0310 '02:00:00 PM' '$7' '$8'
+#Ceveland Hanna 
+
+
